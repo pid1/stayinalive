@@ -9,7 +9,7 @@ import (
 )
 
 func main() {
-	bpm := flag.Int("bpm", 104, "beats per minute (tick speed)")
+	bpm := flag.Int("bpm", 400, "beats per minute (tick speed)")
 	density := flag.Float64("density", 0.3, "initial cell density (0.0-1.0)")
 	flag.Parse()
 

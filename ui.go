@@ -1,7 +1,6 @@
 package main
 
 import (
-	"fmt"
 	"os/exec"
 	"strings"
 	"time"
@@ -60,8 +59,7 @@ func (m model) Update(msg tea.Msg) (tea.Model, tea.Cmd) {
 		if m.width < 1 {
 			m.width = 1
 		}
-		// Reserve 3 lines for the status bar.
-		m.height = msg.Height - 3
+		m.height = msg.Height
 		if m.height < 1 {
 			m.height = 1
 		}
@@ -90,8 +88,8 @@ func (m model) Update(msg tea.Msg) (tea.Model, tea.Cmd) {
 			return m, nil
 		case "+", "=":
 			m.bpm += 10
-			if m.bpm > 300 {
-				m.bpm = 300
+			if m.bpm > 600 {
+				m.bpm = 600
 			}
 			return m, nil
 		case "-", "_":
@@ -115,7 +113,7 @@ func (m model) Update(msg tea.Msg) (tea.Model, tea.Cmd) {
 	return m, nil
 }
 
-// View renders the grid and status bar as a terminal view.
+// View renders the grid as a full-screen terminal view.
 func (m model) View() tea.View {
 	if m.grid == nil {
 		v := tea.NewView("Initializing...")
@@ -128,22 +126,13 @@ func (m model) View() tea.View {
 
 	// Render the grid.
 	for y := 0; y < m.grid.height; y++ {
+		if y > 0 {
+			sb.WriteByte('\n')
+		}
 		for x := 0; x < m.grid.width; x++ {
 			sb.WriteString(RenderCell(m.grid.Get(x, y), m.generation, x, y, m.darkBg))
 		}
-		sb.WriteByte('\n')
 	}
-
-	// Build the status bar.
-	pauseLabel := "PLAYING"
-	if m.paused {
-		pauseLabel = "PAUSED"
-	}
-	sb.WriteString(fmt.Sprintf("Gen: %d | Alive: %d | BPM: %d | %s\n",
-		m.generation, m.grid.CountAlive(), m.bpm, pauseLabel))
-	sb.WriteString(DiscoTagline(m.generation))
-	sb.WriteByte('\n')
-	sb.WriteString("q: quit | space: pause | r: randomize | +/-: speed")
 
 	v := tea.NewView(sb.String())
 	v.AltScreen = true

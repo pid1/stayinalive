@@ -23,16 +23,6 @@ const (
 	deadRune  = "\u00B7" // Middle dot
 )
 
-// taglines are rotating Bee Gees lyrics for the status bar.
-var taglines = []string{
-	"Ah, ha, ha, ha, stayin' alive",
-	"Stayin' alive, stayin' alive",
-	"Feel the city breakin' and everybody shakin'",
-	"Life goin' nowhere, somebody help me",
-	"Well, you can tell by the way I use my walk",
-	"Whether you're a brother or whether you're a mother",
-}
-
 // CellStyle returns a lipgloss style for an alive cell based on generation and position.
 func CellStyle(generation, x, y int) lipgloss.Style {
 	idx := (generation + x + y) % len(discoPalette)
@@ -54,9 +44,4 @@ func RenderCell(alive bool, generation, x, y int, darkBg bool) string {
 		return CellStyle(generation, x, y).Render(aliveRune)
 	}
 	return DeadCellStyle(darkBg).Render(deadRune)
-}
-
-// DiscoTagline returns a rotating tagline based on the generation number.
-func DiscoTagline(generation int) string {
-	return taglines[generation%len(taglines)]
 }
