@@ -40,16 +40,20 @@ func CellStyle(generation, x, y int) lipgloss.Style {
 }
 
 // DeadCellStyle returns a dim style for dead cells.
-func DeadCellStyle() lipgloss.Style {
-	return lipgloss.NewStyle().Foreground(lipgloss.Color("#333333"))
+func DeadCellStyle(darkBg bool) lipgloss.Style {
+	c := lipgloss.Color("#CCCCCC")
+	if darkBg {
+		c = lipgloss.Color("#333333")
+	}
+	return lipgloss.NewStyle().Foreground(c)
 }
 
 // RenderCell renders a single cell as a styled string.
-func RenderCell(alive bool, generation, x, y int) string {
+func RenderCell(alive bool, generation, x, y int, darkBg bool) string {
 	if alive {
 		return CellStyle(generation, x, y).Render(aliveRune)
 	}
-	return DeadCellStyle().Render(deadRune)
+	return DeadCellStyle(darkBg).Render(deadRune)
 }
 
 // DiscoTagline returns a rotating tagline based on the generation number.

@@ -21,6 +21,7 @@ type model struct {
 	paused     bool
 	bpm        int
 	density    float64
+	darkBg     bool
 	cafCmd     *exec.Cmd
 }
 
@@ -41,9 +42,12 @@ func newModel(bpm int, density float64, cafCmd *exec.Cmd) model {
 
 // Init starts the tick timer immediately.
 func (m model) Init() tea.Cmd {
-	return tea.Tick(tickInterval(m.bpm), func(t time.Time) tea.Msg {
-		return tickMsg(t)
-	})
+	return tea.Batch(
+		tea.Tick(tickInterval(m.bpm), func(t time.Time) tea.Msg {
+			return tickMsg(t)
+		}),
+		tea.RequestBackgroundColor,
+	)
 }
 
 // Update handles messages: window resizes, key presses, and tick events.
@@ -64,6 +68,10 @@ func (m model) Update(msg tea.Msg) (tea.Model, tea.Cmd) {
 		m.grid = NewGrid(m.width, m.height)
 		m.grid.Randomize(m.density)
 		m.generation = 0
+		return m, nil
+
+	case tea.BackgroundColorMsg:
+		m.darkBg = msg.IsDark()
 		return m, nil
 
 	case tea.KeyPressMsg:
@@ -121,7 +129,7 @@ func (m model) View() tea.View {
 	// Render the grid.
 	for y := 0; y < m.grid.height; y++ {
 		for x := 0; x < m.grid.width; x++ {
-			sb.WriteString(RenderCell(m.grid.Get(x, y), m.generation, x, y))
+			sb.WriteString(RenderCell(m.grid.Get(x, y), m.generation, x, y, m.darkBg))
 		}
 		sb.WriteByte('\n')
 	}
