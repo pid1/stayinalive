@@ -19,8 +19,8 @@ var discoPalette = []color.Color{
 }
 
 const (
-	aliveRune = "\u2588" // Full block character
-	deadRune  = "\u00B7" // Middle dot
+	aliveRune = "\u2588\u2588" // Two full block characters (2 cols wide)
+	deadRune  = " \u00B7"      // Space + middle dot (2 cols wide)
 )
 
 // CellStyle returns a lipgloss style for an alive cell based on generation and position.
