@@ -2,3 +2,6 @@
 .workflow/20260304-092909-35886242/
 .workflow/20260304-100202-53ab6bff/
 stayinalive
+
+# FastForward runtime artifacts
+.fastforward/

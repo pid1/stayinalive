@@ -11,6 +11,7 @@ import (
 func main() {
 	bpm := flag.Int("bpm", 400, "beats per minute (tick speed)")
 	density := flag.Float64("density", 0.3, "initial cell density (0.0-1.0)")
+	autoReseed := flag.Bool("auto-reseed", true, "automatically reseed when simulation stagnates")
 	flag.Parse()
 
 	cafCmd, err := StartCaffeinate()
@@ -20,7 +21,7 @@ func main() {
 	}
 	defer StopCaffeinate(cafCmd)
 
-	m := newModel(*bpm, *density, cafCmd)
+	m := newModel(*bpm, *density, *autoReseed, cafCmd)
 	p := tea.NewProgram(m)
 	if _, err := p.Run(); err != nil {
 		fmt.Fprintf(os.Stderr, "Error: %v\n", err)
