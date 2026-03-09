@@ -30,7 +30,7 @@ All source files are in the repository root under package `main`.
 
 The app follows Bubble Tea's Model-View-Update pattern:
 
-1. **Model** (`ui.go`): holds grid state, terminal dimensions, generation counter, pause state, BPM, background brightness flag, and caffeinate process handle.
+1. **Model** (`ui.go`): holds grid state, terminal dimensions, generation counter, pause state, BPM, background brightness flag, caffeinate process handle, and stagnation detection state (auto-reseed toggle, alive-count ring buffer).
 2. **Update** (`ui.go`): handles window resize, key presses, tick events, and background color detection messages.
 3. **View** (`ui.go`): renders the grid cell-by-cell using `disco.RenderCell` as a full-screen display.
 4. **Game engine** (`game.go`): pure logic. `Grid.Tick()` returns a new grid (double-buffered). Toroidal wrapping on all edges.
@@ -78,6 +78,14 @@ Always run both commands after making changes. There are no unit tests currently
 - `caffeinate -di` is spawned at startup to prevent display and idle sleep.
 - The process is killed explicitly on quit and via `defer` in `main()`.
 - If caffeinate fails to start, the app continues with a warning (non-fatal).
+
+### Stagnation Detection and Auto-Reseed
+
+- The model tracks alive-cell counts in a fixed-size ring buffer (`[stagnationWindow]int`, where `stagnationWindow = 20`).
+- `isStagnant()` returns true when the buffer is full and `max - min <= stagnationThreshold` (threshold is 3).
+- The tick handler checks for stagnation each generation. If `autoReseed` is enabled and the simulation is stagnant (or alive count is 0), the grid re-randomizes and the history buffer clears.
+- The history buffer (`histLen`, `histIdx`) must be reset on all reseed paths: auto-reseed, manual reseed (`r` key), and window resize. This prevents stale data from triggering false positives.
+- The `-auto-reseed` CLI flag (default `true`) controls the initial state. The `a` key toggles it at runtime.
 
 ## Key Constraints
 
