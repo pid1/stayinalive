@@ -18,13 +18,13 @@ stayinalive is a macOS terminal TUI that runs Conway's Game of Life with disco-t
 
 All source files are in the repository root under package `main`.
 
-| File             | Responsibility                                     |
-| ---------------- | -------------------------------------------------- |
-| `main.go`        | Entry point, CLI flag parsing, caffeinate lifecycle |
-| `game.go`        | Conway's Game of Life engine (pure logic, no UI)   |
-| `ui.go`          | Bubble Tea model, Init, Update, View               |
-| `disco.go`       | Disco color palettes, cell rendering               |
-| `caffeinate.go`  | macOS caffeinate subprocess start/stop              |
+| File            | Responsibility                                      |
+| --------------- | --------------------------------------------------- |
+| `main.go`       | Entry point, CLI flag parsing, caffeinate lifecycle |
+| `game.go`       | Conway's Game of Life engine (pure logic, no UI)    |
+| `ui.go`         | Bubble Tea model, Init, Update, View                |
+| `disco.go`      | Disco color palettes, cell rendering                |
+| `caffeinate.go` | macOS caffeinate subprocess start/stop              |
 
 ## Architecture
 

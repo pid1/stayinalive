@@ -34,11 +34,11 @@ go build -o stayinalive .
 
 ### Flags
 
-| Flag             | Default | Description                                      |
-| ---------------- | ------- | ------------------------------------------------ |
-| `--bpm`          | `400`   | Tick speed in beats per minute                   |
-| `--density`      | `0.3`   | Initial cell density (0.0 to 1.0)                |
-| `--auto-reseed`  | `true`  | Automatically reseed when the simulation stagnates |
+| Flag            | Default | Description                                        |
+| --------------- | ------- | -------------------------------------------------- |
+| `--bpm`         | `400`   | Tick speed in beats per minute                     |
+| `--density`     | `0.3`   | Initial cell density (0.0 to 1.0)                  |
+| `--auto-reseed` | `true`  | Automatically reseed when the simulation stagnates |
 
 ### Examples
 
@@ -58,14 +58,14 @@ go build -o stayinalive .
 
 ## Controls
 
-| Key             | Action                          |
-| --------------- | ------------------------------- |
-| `q` / `Ctrl+C`  | Quit (stops caffeinate)        |
-| `Space`          | Pause / resume                 |
-| `r`              | Randomize the grid             |
-| `a`              | Toggle auto-reseed on/off      |
-| `+` / `=`        | Increase BPM (max 600)         |
-| `-` / `_`        | Decrease BPM (min 10)          |
+| Key            | Action                    |
+| -------------- | ------------------------- |
+| `q` / `Ctrl+C` | Quit (stops caffeinate)   |
+| `Space`        | Pause / resume            |
+| `r`            | Randomize the grid        |
+| `a`            | Toggle auto-reseed on/off |
+| `+` / `=`      | Increase BPM (max 600)    |
+| `-` / `_`      | Decrease BPM (min 10)     |
 
 ## How It Works
 
