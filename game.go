@@ -1,5 +1,7 @@
 package main
 
+// Seeding a Game of Life board, not a key.
+// nosemgrep: go.lang.security.audit.crypto.math_random.math-random-used
 import "math/rand"
 
 // Grid holds the 2D cell state for Conway's Game of Life.
