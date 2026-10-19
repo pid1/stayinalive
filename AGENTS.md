@@ -8,7 +8,7 @@ stayinalive is a macOS terminal TUI that runs Conway's Game of Life with disco-t
 
 ## Language and Dependencies
 
-- **Language**: Go (1.25.5+)
+- **Language**: Go (1.27+)
 - **Module name**: `stayinalive`
 - **Key dependencies**:
   - `charm.land/bubbletea/v2` (v2.0.1): TUI framework (Model-View-Update pattern)
