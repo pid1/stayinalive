@@ -16,7 +16,7 @@ Built with [Bubble Tea V2](https://charm.sh/bubbletea/) and [Lip Gloss V2](https
 ## Requirements
 
 - macOS (uses `/usr/bin/caffeinate` for sleep prevention)
-- Go 1.25.5 or later
+- Go 1.27 or later
 - A terminal emulator (works best with one that supports true color and background color queries)
 
 ## Installation
