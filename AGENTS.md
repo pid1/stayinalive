@@ -102,5 +102,5 @@ Always run both commands after making changes. There are no unit tests currently
 - On Linux, the app runs in a pseudo-terminal and draws the grid. It warns that `/usr/bin/caffeinate` is missing and keeps running.
 
 ### Toolchain
-- Go modules only. The `toolchain` line in go.mod pins the Go release. Go has no cooldown setting, so `lockage.py go.sum` dates the dependencies.
+- Go modules only. go.mod sets the Go version. Go has no cooldown setting, so `lockage.py go.sum` dates the dependencies.
 - CI runs only the Semgrep workflow. No workflow builds or tests the Go code.
