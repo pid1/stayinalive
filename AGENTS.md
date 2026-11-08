@@ -100,6 +100,7 @@ Always run both commands after making changes. There are no unit tests currently
 - `go build ./...` and `go vet ./...` must pass. `go test ./...` reports no test files. `gofmt -l .` must print nothing.
 - The Linux host cannot run the macOS build. `GOOS=darwin GOARCH=arm64 go build -o /dev/null .` and `GOOS=darwin GOARCH=arm64 go vet ./...` check it.
 - On Linux, the app runs in a pseudo-terminal and draws the grid. It warns that `/usr/bin/caffeinate` is missing and keeps running.
+- `go run golang.org/x/vuln/cmd/govulncheck@v1.9.0 ./...` checks the Go toolchain and modules for advisories, and must report no vulnerabilities.
 
 ### Toolchain
 - Go modules only. go.mod sets the Go version. Go has no cooldown setting, so `lockage.py go.sum` dates the dependencies.
